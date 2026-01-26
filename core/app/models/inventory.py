@@ -15,30 +15,24 @@ class Product(models.Model):
     # One inventory can have many product but a product must belong to a single inventory
     inventory = models.ForeignKey('Inventory', on_delete=models.CASCADE, related_name="products")
 
-    def __str__(self) -> str:
-        return self.name
-    
 
 # Model for inventories
 # Visibility: Visible
 # Dependency: Warehouse
 class Inventory(models.Model):
 
-    name = models.CharField(verbose_name='inventory_name', max_length=255, blank=False, unique=False, null=False)
+    name = models.CharField(verbose_name='name', max_length=255, blank=False, unique=False, null=False)
     warehouse = models.ForeignKey('Warehouse', on_delete=models.CASCADE)
-    capacity = models.PositiveIntegerField(verbose_name='inventory_capacity')
+    capacity = models.PositiveIntegerField(verbose_name='capacity')
 
     # Location in warehouse
-    location = models.CharField(verbose_name='inventory_location', max_length=50)
+    location = models.CharField(verbose_name='location', max_length=50)
 
     # Time records
-    created_at = models.DateTimeField(verbose_name='inventory_creation_time', auto_now_add=True)
-    updated_at = models.DateTimeField(verbose_name='inventory_last_update_time', auto_now=True)
+    created_at = models.DateTimeField(verbose_name='creation time', auto_now_add=True)
+    updated_at = models.DateTimeField(verbose_name='last_update_time', auto_now=True)
 
     class Meta:
 
         verbose_name = 'Inventory'
         verbose_name_plural = 'Inventory'
-
-    def __str__(self) -> str:
-        return f'{self.name} {self.created_at} {self.updated_at} {self.capacity} {self.location}'

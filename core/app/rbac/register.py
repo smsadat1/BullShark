@@ -7,12 +7,22 @@ from django.urls import reverse
 from typing import Any
 
 from app.models import (
-    Dashboard, Inventory, Product, Warehouse, Transaction, History, Role, Permission, UserAuthProxyModel
+    Category, Dashboard, Inventory, Invite, Product, Warehouse, Transaction, History, Role, Permission, UserAuthProxyModel
 )
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+        'created_at',
+        'updated_at',
+    )
+
 
 @admin.register(Dashboard)
 class DashboardAdmin(admin.ModelAdmin):
-    
+# Wrapped around fake class to make the redirect work    
     def changelist_view(self, request, extra_context=None): # type: ignore
         return redirect(reverse('admin:index'))
 
@@ -34,6 +44,23 @@ class InventoryAdmin(admin.ModelAdmin):
         'warehouse',
         'capacity',
         'location',
+        'created_at',
+    )
+
+
+@admin.register(Invite)
+class InviteAdmin(admin.ModelAdmin):
+
+
+    def get_warehouses(self, obj):
+        return ", ".join([w.name for w in obj.warehouses.all()])
+
+    list_display = (
+        'email',
+        'role',
+        'get_warehouses',
+        'status',
+        'invited_by',
         'created_at',
     )
 
@@ -103,3 +130,9 @@ class HistoryAdmin(admin.ModelAdmin):
     
     def has_view_permission(self, request: HttpRequest, obj: Any | None = ...) -> bool:
         return True
+    
+    list_display = (
+        'user',
+        'action_type',
+        'time',
+    )
