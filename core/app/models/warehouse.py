@@ -1,5 +1,8 @@
 from django.db import models
 
+
+# Model for warehouses
+# Visibility: Invisible
 class Warehouse(models.Model):
 
     # Warehouse names must be unique

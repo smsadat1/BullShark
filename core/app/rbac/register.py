@@ -44,6 +44,18 @@ class TransactionAdmin(admin.ModelAdmin):
     )
     readonly_fields = ('product_name', 'product_quantity', 'supplier_name', 'supplier_mail', 'target_inventory', 'target_warehouse', 'supply_date')
 
+    def has_add_permission(self, request: HttpRequest) -> bool:
+        return False
+    
+    def has_change_permission(self, request: HttpRequest, obj: Any | None = ...) -> bool:
+        return False
+    
+    def has_delete_permission(self, request: HttpRequest, obj: Any | None = ...) -> bool:
+        return False
+    
+    def has_view_permission(self, request: HttpRequest, obj: Any | None = ...) -> bool:
+        return True
+
 
 class PermissionInline(admin.TabularInline):
     model = Permission
@@ -61,8 +73,6 @@ class RoleAdmin(admin.ModelAdmin):
 
 @admin.register(UserAuthProxyModel)
 class UserAuthAdmin(admin.ModelAdmin):
-
-    filter_horizontal = ('roles',)  # allows multi-select in admin
 
     def has_add_permission(self, request: HttpRequest) -> bool:
         return False

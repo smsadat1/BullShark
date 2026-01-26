@@ -1,7 +1,8 @@
 from django.db import models
 
-
-# visibility: Invisible
+# Model for products
+# Visibility: Invisible
+# Dependency: Inventory
 class Product(models.Model):
 
     name = models.CharField(verbose_name='product_name', max_length=255, blank=False, unique=False, null=False)
@@ -18,8 +19,9 @@ class Product(models.Model):
         return self.name
     
 
-# visibility: Visible
-# dependency: ProductModel
+# Model for inventories
+# Visibility: Visible
+# Dependency: Warehouse
 class Inventory(models.Model):
 
     name = models.CharField(verbose_name='inventory_name', max_length=255, blank=False, unique=False, null=False)

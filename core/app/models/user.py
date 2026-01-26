@@ -1,9 +1,14 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+# Model for roles
+# Visibility: Invisible
 class Role(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
+# Model for permissions
+# Permission has 4 level: R, C, E, D || With 3 layers: Warehouse, Inventory, Product
+# Visibility: Invisible
 class Permission(models.Model):
     resource = models.CharField(
         max_length=50, choices=[
