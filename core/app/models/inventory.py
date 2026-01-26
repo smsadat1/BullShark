@@ -38,7 +38,7 @@ class Inventory(models.Model):
     class Meta:
 
         verbose_name = 'Inventory'
-        verbose_name_plural = 'Inventories'
+        verbose_name_plural = 'Inventory'
 
     def __str__(self) -> str:
         return f'{self.name} {self.created_at} {self.updated_at} {self.capacity} {self.location}'

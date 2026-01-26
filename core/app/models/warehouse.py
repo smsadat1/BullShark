@@ -17,7 +17,7 @@ class Warehouse(models.Model):
 
     class Meta:
         verbose_name = 'Warehouse'
-        verbose_name_plural = 'Warehouses'        
+        verbose_name_plural = 'Warehouse'        
 
     def __str__(self) -> str:
         return f'{self.name} {self.road} {self.city} {self.state} {self.country}'

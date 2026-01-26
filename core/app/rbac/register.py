@@ -1,12 +1,20 @@
 from django.contrib import admin
 from django.http import HttpRequest
+from django.shortcuts import redirect 
+from django.urls import reverse
+
 
 from typing import Any
 
 from app.models import (
-    Inventory, Product, Warehouse, Transaction, Role, Permission, UserAuthProxyModel
+    Dashboard, Inventory, Product, Warehouse, Transaction, History, Role, Permission, UserAuthProxyModel
 )
 
+@admin.register(Dashboard)
+class DashboardAdmin(admin.ModelAdmin):
+    
+    def changelist_view(self, request, extra_context=None): # type: ignore
+        return redirect(reverse('admin:index'))
 
 class ProductInline(admin.TabularInline):
     model = Product
@@ -79,3 +87,19 @@ class UserAuthAdmin(admin.ModelAdmin):
     
     def has_delete_permission(self, request: HttpRequest, obj: Any | None = ...) -> bool:
         return False
+    
+
+@admin.register(History)
+class HistoryAdmin(admin.ModelAdmin):
+    
+    def has_add_permission(self, request: HttpRequest) -> bool:
+        return False
+    
+    def has_change_permission(self, request: HttpRequest, obj: Any | None = ...) -> bool:
+        return False
+    
+    def has_delete_permission(self, request: HttpRequest, obj: Any | None = ...) -> bool:
+        return False
+    
+    def has_view_permission(self, request: HttpRequest, obj: Any | None = ...) -> bool:
+        return True

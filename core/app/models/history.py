@@ -20,3 +20,7 @@ class History(models.Model):
     object_id = models.CharField(max_length=50)
     details = models.JSONField(null=True, blank=True)
     time = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'History'
+        verbose_name_plural = 'History'
