@@ -1,13 +1,16 @@
 from django.contrib import admin
-from django.http import HttpRequest
-from django.shortcuts import redirect 
-from django.urls import reverse
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import AdminPasswordChangeForm
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import redirect, render
+from django.template.response import TemplateResponse
+from django.urls import path, reverse
 
 
 from typing import Any
 
 from app.models import (
-    Category, Dashboard, Inventory, Invite, Product, Warehouse, Transaction, History, Role, Permission, UserAuthProxyModel
+    Category, Dashboard, Inventory, Invite, Product, Warehouse, Transaction, History, Role, Permission, Profile, UserAuthProxyModel
 )
 
 
@@ -136,3 +139,38 @@ class HistoryAdmin(admin.ModelAdmin):
         'action_type',
         'time',
     )
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path('', self.admin_site.admin_view(self.profile_view), name='profile'),
+        ]
+
+        return custom_urls + urls
+
+
+    def profile_view(self, request):
+        user  = request.user
+        password_form = AdminPasswordChangeForm(user, request.POST or None)
+        password_changed = False
+
+        if request.method == 'POST' and password_form.is_valid():
+            password_form.save()
+
+            # keep logged in after changfe
+            update_session_auth_hash(request, user)
+            password_changed = True 
+
+        context = {
+            **self.admin_site.each_context(request),
+            'user': user,
+            'password_form': password_form,
+            'password_changed': password_changed,
+            'title': 'Your Profile',
+        }   
+
+        return render(request, 'admin/profile.html', context)     

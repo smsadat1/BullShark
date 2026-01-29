@@ -1,0 +1,23 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+
+<h2>User Info</h2>
+<ul>
+    <li>Username: {{ user.username }}</li>
+    <li>Email: {{ user.email }}</li>
+    <li>Roles: {% for role in user.role.all %} {{ role.name }} {% endfor %}</li>
+</ul>
+
+<h2>Change Password</h2>
+{% if password_changed %}
+    <p style="color:green;">Password successfully changed!</p>
+{% endif %}
+<form method="post">
+    {% csrf_token %}
+    {{ password_form.as_p }}
+    <input type="submit" value="Change Password">
+</form>
+{% endblock %}
