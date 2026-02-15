@@ -7,6 +7,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv()
 
+BACKEND_URL=os.getenv('BACKEND_URL')
+
 DJANGO_SECRET_KEY=os.getenv('DJANGO_SECRET_KEY')
 
 DATABASE_NAME=os.getenv('DATABASE_NAME')

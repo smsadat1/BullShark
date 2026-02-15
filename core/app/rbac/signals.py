@@ -72,6 +72,7 @@ def __send_email(invite_id):
             role=invite.role,
             warehouse=", ".join([w.name for w in invite.warehouses.all()]),
             expires_at=str(invite.expires_at),
+            invite_token=str(invite.token)
         )
 
         invite.email_sent = True 

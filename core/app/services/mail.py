@@ -1,16 +1,17 @@
 from django.http import HttpResponse
 from django.core.mail import send_mail
-from config.settings import EMAIL_HOST_USER
+from config.settings import BACKEND_URL, EMAIL_HOST_USER
 
 def send_invitation_mail(
     email: str, 
     role: str, 
     warehouse: str, 
     expires_at: str,
+    invite_token: str,
 ):
     context = {}
 
-    link = "http://127.0.0.1/not_implemented"
+    link = f'{BACKEND_URL}/invite/activate/{invite_token}'
     message = f"""
     You are enrolled as {role} in {warehouse} warehouse.
     Click the following link to verify registration.   

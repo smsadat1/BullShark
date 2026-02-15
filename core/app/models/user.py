@@ -24,6 +24,7 @@ class Permission(models.Model):
 class User(AbstractUser):
     # User's role
     role = models.ManyToManyField(Role, related_name='users')
+    is_active = models.BooleanField(default=False)
 
 
 class UserAuthProxyModel(User):

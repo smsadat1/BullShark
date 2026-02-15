@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from app.views.login import activate_invite_login
+
 urlpatterns = [
     path('', admin.site.urls),
+    path('invite/activate/<uuid:token>', activate_invite_login, name='activate_invite_login')
 ]

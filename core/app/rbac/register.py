@@ -66,7 +66,7 @@ class InviteAdmin(admin.ModelAdmin):
         'created_at',
     )
 
-    readonly_fields = ("email_sent", "email_error")
+    readonly_fields = ("accepted_at", "email_sent", "email_error", "token")
 
 
 @admin.register(Warehouse)
