@@ -54,7 +54,6 @@ class InventoryAdmin(admin.ModelAdmin):
 @admin.register(Invite)
 class InviteAdmin(admin.ModelAdmin):
 
-
     def get_warehouses(self, obj):
         return ", ".join([w.name for w in obj.warehouses.all()])
 
@@ -66,6 +65,8 @@ class InviteAdmin(admin.ModelAdmin):
         'invited_by',
         'created_at',
     )
+
+    readonly_fields = ("email_sent", "email_error")
 
 
 @admin.register(Warehouse)

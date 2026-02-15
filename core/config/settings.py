@@ -7,12 +7,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv()
 
+DJANGO_SECRET_KEY=os.getenv('DJANGO_SECRET_KEY')
+
 DATABASE_NAME=os.getenv('DATABASE_NAME')
 DATABASE_OWNER=os.getenv('DATABASE_OWNER')
 DATABASE_PASSWORD=os.getenv('DATABASE_PASSWORD')
-DJANGO_SECRET_KEY=os.getenv('DJANGO_SECRET_KEY')
 DATABASE_HOST=os.getenv('DATABASE_HOST')
 DATABASE_PORT=os.getenv('DATABASE_PORT')
+
+EMAIL_BACKEND=os.getenv('EMAIL_BACKEND')
+EMAIL_HOST=os.getenv('EMAIL_HOST')
+EMAIL_USE_TLS=os.getenv('EMAIL_USE_TLS')
+EMAIL_PORT_SSL=os.getenv('EMAIL_PORT_SSL')
+EMAIL_PORT_TLS=os.getenv('EMAIL_PORT_TLS')
+EMAIL_HOST_USER=os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD=os.getenv('EMAIL_HOST_PASSWORD')
 
 
 # Quick-start development settings - unsuitable for production
@@ -109,16 +118,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
-USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
 ADMIN_ENABLE_NAV_SIDEBAR = True
+
+USE_TZ = True
+TIME_ZONE = 'Asia/Dhaka'
